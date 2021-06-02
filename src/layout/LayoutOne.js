@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Layout, Menu } from 'antd';
 import {
@@ -6,12 +6,37 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
-import { navigate } from '@reach/router';
+import { navigate, useLocation } from '@reach/router';
 const { Header, Content, Footer, Sider } = Layout;
 
 export default function LayOut(props) {
+  const location = useLocation();
   const navigationHandler = (dest) => {
     navigate(dest);
+  };
+  const getCurrentNav = (location) => {
+    let response;
+    switch (location.pathname) {
+      case '/':
+        response = '1';
+        break;
+      case '/faculty':
+        response = '2';
+        break;
+      case '/department':
+        response = '3';
+        break;
+      case '/degree':
+        response = '4';
+        break;
+      case '/course':
+        response = '5';
+        break;
+      default:
+        response = '0';
+        break;
+    }
+    return response;
   };
   return (
     <Styled>
@@ -27,7 +52,11 @@ export default function LayOut(props) {
           }}
         >
           <div className="logo" />
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+          <Menu
+            theme="dark"
+            mode="inline"
+            defaultSelectedKeys={[getCurrentNav(location)]}
+          >
             <Menu.Item
               key="1"
               icon={<UserOutlined />}

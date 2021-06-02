@@ -80,6 +80,7 @@ export default function AddModal() {
   };
 
   const handleCancel = () => {
+    formRef.current.resetFields();
     setIsModalVisible(false);
   };
 
@@ -90,6 +91,7 @@ export default function AddModal() {
       </Button>
       <Modal
         title="New Department"
+        layout="vertical"
         visible={isModalVisible}
         onOk={handleSubmit}
         onCancel={handleCancel}

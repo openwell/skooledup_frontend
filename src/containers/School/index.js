@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Space } from 'antd';
+import { Table, Space, Avatar } from 'antd';
 import styled from 'styled-components';
 import { schoolApis } from 'apis';
+import { PictureOutlined } from '@ant-design/icons';
 import EditModal from './EditModal';
 import AddModal from './AddModal';
 import CustomLayout from 'layout/LayoutOne';
-
+// DeleteOutlined EditOutlined
 const columns = [
   {
     title: 'School Name',
@@ -17,6 +18,7 @@ const columns = [
     title: 'Logo',
     dataIndex: 'school_logo',
     key: 'school_logo',
+    render: (text) => <Avatar size="large" icon={<PictureOutlined />} />,
   },
   {
     title: 'Action',

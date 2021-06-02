@@ -50,6 +50,7 @@ export default function AddModal() {
   };
 
   const handleCancel = () => {
+    formRef.current.resetFields();
     setIsModalVisible(false);
   };
 
@@ -67,6 +68,7 @@ export default function AddModal() {
       >
         <Form
           // {...layout}
+          layout="vertical"
           ref={formRef}
           name="control-ref"
           // initialValues={{ remember: true }}

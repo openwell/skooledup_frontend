@@ -65,9 +65,10 @@ export default function AddModal() {
   };
 
   const handleCancel = () => {
+    formRef.current.resetFields();
     setIsModalVisible(false);
   };
-
+  // console.log(faculty);
   return (
     <>
       <Button type="primary" onClick={showModal}>
@@ -81,7 +82,7 @@ export default function AddModal() {
         okButtonProps={{ loading: isLoading }}
         okText="Submit"
       >
-        <Form ref={formRef} name="control-ref">
+        <Form layout="vertical" ref={formRef} name="control-ref">
           <Form.Item
             label="School"
             name="school_name"
@@ -93,9 +94,14 @@ export default function AddModal() {
             ]}
           >
             <Select
-              onChange={(value) =>
-                setFaculty((prev) => ({ ...prev, school_id: value }))
-              }
+              onChange={(value) => {
+                formRef.current.setFieldsValue({ faculty_name: null });
+                setFaculty((prev) => ({
+                  ...prev,
+                  school_id: value,
+                  faculty_name: null,
+                }));
+              }}
               placeholder="Select School"
             >
               {schoolList.map((elem) => {

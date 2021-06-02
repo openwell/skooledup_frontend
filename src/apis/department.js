@@ -9,6 +9,14 @@ const request = {
       url,
     });
   },
+  getDepartmentsByFacultyId: ({ faculty_id }) => {
+    let method = 'get';
+    let url = '/departmentsByFacultyId/' + faculty_id;
+    return apiWithoutToken({
+      method,
+      url,
+    });
+  },
   updateDepartmentById: ({ id, data }) => {
     let method = 'put';
     let url = '/department/' + id;
