@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Space, Avatar } from 'antd';
+import { Table, Space, Avatar, Spin } from 'antd';
 import styled from 'styled-components';
 import { schoolApis } from 'apis';
 import { PictureOutlined } from '@ant-design/icons';
@@ -35,14 +35,18 @@ const columns = [
 ];
 export default function Home() {
   const [schoolList, setSchoolList] = useState([]);
+  const [isLoading, setLoading] = useState(false);
   useEffect(() => {
     const getSchools = async () => {
       try {
+        setLoading(true);
         const res = await schoolApis.getAllSchools();
         console.log(res.data);
         setSchoolList(res.data.data.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
     getSchools();
@@ -57,8 +61,16 @@ export default function Home() {
           className="site-layout-background"
           style={{ padding: 24, minHeight: 360 }}
         >
-          {schoolList.length > 0 && (
-            <Table columns={columns} dataSource={schoolList} rowKey="id" />
+          {isLoading ? (
+            <div className="center_spinner">
+              <Spin size="large" />
+            </div>
+          ) : (
+            <>
+              {schoolList.length > 0 && (
+                <Table columns={columns} dataSource={schoolList} rowKey="id" />
+              )}
+            </>
           )}
         </div>
       </CustomLayout>
@@ -67,6 +79,10 @@ export default function Home() {
 }
 const Styled = styled.div`
   /*   #components-layout-demo-responsive  */
+  .center_spinner {
+    display: flex;
+    justify-content: center;
+  }
   .my-link {
     cursor: pointer;
   }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Space } from 'antd';
+import { Table, Space, Spin } from 'antd';
 import styled from 'styled-components';
 import { facultyApis } from 'apis';
 import CustomLayout from 'layout/LayoutOne';
@@ -35,14 +35,18 @@ const columns = [
 ];
 export default function Faculty() {
   const [facultyList, setFacultyList] = useState([]);
+  const [isLoading, setLoading] = useState(false);
   useEffect(() => {
     const getFaculties = async () => {
       try {
+        setLoading(true);
         const res = await facultyApis.getFaculties();
         console.log(res);
         setFacultyList(res.data.data.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
     getFaculties();
@@ -57,12 +61,25 @@ export default function Faculty() {
           className="site-layout-background"
           style={{ padding: 24, minHeight: 360 }}
         >
-          {facultyList.length > 0 && (
-            <Table columns={columns} dataSource={facultyList} rowKey="id" />
+          {isLoading ? (
+            <div className="center_spinner">
+              <Spin size="large" />
+            </div>
+          ) : (
+            <>
+              {facultyList.length > 0 && (
+                <Table columns={columns} dataSource={facultyList} rowKey="id" />
+              )}
+            </>
           )}
         </div>
       </CustomLayout>
     </Styled>
   );
 }
-const Styled = styled.div``;
+const Styled = styled.div`
+  .center_spinner {
+    display: flex;
+    justify-content: center;
+  }
+`;

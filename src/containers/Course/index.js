@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Space, Button } from 'antd';
+import { Table, Space, Button, Spin } from 'antd';
 import styled from 'styled-components';
 import { courseApis } from 'apis';
 import CustomLayout from 'layout/LayoutOne';
@@ -59,14 +59,18 @@ const columns = [
 ];
 export default function Course() {
   const [courseList, setCourseList] = useState([]);
+  const [isLoading, setLoading] = useState(false);
   useEffect(() => {
     const getCourses = async () => {
       try {
+        setLoading(true);
         const res = await courseApis.getAllCourses();
         console.log(res);
         setCourseList(res.data.data.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
     getCourses();
@@ -85,12 +89,25 @@ export default function Course() {
           className="site-layout-background"
           style={{ padding: 24, minHeight: 360 }}
         >
-          {courseList?.length > 0 && (
-            <Table columns={columns} dataSource={courseList} rowKey="id" />
+          {isLoading ? (
+            <div className="center_spinner">
+              <Spin size="large" />
+            </div>
+          ) : (
+            <>
+              {courseList?.length > 0 && (
+                <Table columns={columns} dataSource={courseList} rowKey="id" />
+              )}
+            </>
           )}
         </div>
       </CustomLayout>
     </Styled>
   );
 }
-const Styled = styled.div``;
+const Styled = styled.div`
+  .center_spinner {
+    display: flex;
+    justify-content: center;
+  }
+`;

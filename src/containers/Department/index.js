@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Space } from 'antd';
+import { Table, Space, Spin } from 'antd';
 import styled from 'styled-components';
 import { departmentApis } from 'apis';
 import CustomLayout from 'layout/LayoutOne';
@@ -40,14 +40,18 @@ const columns = [
 ];
 export default function Department() {
   const [departmentList, setDepartmentList] = useState([]);
+  const [isLoading, setLoading] = useState(false);
   useEffect(() => {
     const getDeparts = async () => {
       try {
+        setLoading(true);
         const res = await departmentApis.getDepartments();
         console.log(res);
         setDepartmentList(res.data.data.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(true);
       }
     };
     getDeparts();
@@ -62,12 +66,29 @@ export default function Department() {
           className="site-layout-background"
           style={{ padding: 24, minHeight: 360 }}
         >
-          {departmentList?.length > 0 && (
-            <Table columns={columns} dataSource={departmentList} rowKey="id" />
+          {isLoading ? (
+            <div className="center_spinner">
+              <Spin size="large" />
+            </div>
+          ) : (
+            <>
+              {departmentList?.length > 0 && (
+                <Table
+                  columns={columns}
+                  dataSource={departmentList}
+                  rowKey="id"
+                />
+              )}
+            </>
           )}
         </div>
       </CustomLayout>
     </Styled>
   );
 }
-const Styled = styled.div``;
+const Styled = styled.div`
+  .center_spinner {
+    display: flex;
+    justify-content: center;
+  }
+`;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Space } from 'antd';
+import { Table, Space, Spin } from 'antd';
 import styled from 'styled-components';
 import { degreeApis } from 'apis';
 import CustomLayout from 'layout/LayoutOne';
@@ -29,14 +29,18 @@ const columns = [
 ];
 export default function Degree() {
   const [degreeList, setDegreeList] = useState([]);
+  const [isLoading, setLoading] = useState(false);
   useEffect(() => {
     const getDegrees = async () => {
       try {
+        setLoading(true);
         const res = await degreeApis.getAllDegrees();
         console.log(res);
         setDegreeList(res.data.data.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
     getDegrees();
@@ -51,8 +55,16 @@ export default function Degree() {
           className="site-layout-background"
           style={{ padding: 24, minHeight: 360 }}
         >
-          {degreeList?.length > 0 && (
-            <Table columns={columns} dataSource={degreeList} rowKey="id" />
+          {isLoading ? (
+            <div className="center_spinner">
+              <Spin size="large" />
+            </div>
+          ) : (
+            <>
+              {degreeList?.length > 0 && (
+                <Table columns={columns} dataSource={degreeList} rowKey="id" />
+              )}
+            </>
           )}
         </div>
       </CustomLayout>

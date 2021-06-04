@@ -267,7 +267,7 @@ export default function Add() {
                 name="dur"
                 rules={[
                   {
-                    required: true,
+                    //required: true,
                     min: 2,
                     message: 'Please input your dur ',
                   },
@@ -288,7 +288,7 @@ export default function Add() {
                 name="tui_fee_local"
                 rules={[
                   {
-                    required: true,
+                    //required: true,
                     min: 2,
                     message: 'Please input your tui_fee_local ',
                   },
@@ -309,7 +309,7 @@ export default function Add() {
                 name="tui_fee_int"
                 rules={[
                   {
-                    required: true,
+                    //required: true,
                     min: 2,
                     message: 'Please input your tui_fee_int ',
                   },
@@ -331,7 +331,7 @@ export default function Add() {
                 name="levy"
                 rules={[
                   {
-                    required: true,
+                    //required: true,
                     min: 2,
                     message: 'Please input your levy ',
                   },
@@ -352,7 +352,7 @@ export default function Add() {
                 name="levy_non_african"
                 rules={[
                   {
-                    required: true,
+                    //required: true,
                     min: 2,
                     message: 'Please input your levy_non_african ',
                   },
@@ -373,7 +373,7 @@ export default function Add() {
                 name="local_app_fee_online"
                 rules={[
                   {
-                    required: true,
+                    //required: true,
                     min: 2,
                     message: 'Please input your local_app_fee_online ',
                   },
@@ -394,7 +394,7 @@ export default function Add() {
                 name="local_app_fee_paper"
                 rules={[
                   {
-                    required: true,
+                    //required: true,
                     min: 2,
                     message: 'Please input your local_app_fee_paper ',
                   },
@@ -415,7 +415,7 @@ export default function Add() {
                 name="int_app_fee_online"
                 rules={[
                   {
-                    required: true,
+                    //required: true,
                     min: 2,
                     message: 'Please input your int_app_fee_online ',
                   },
@@ -436,7 +436,7 @@ export default function Add() {
                 name="int_app_fee_paper"
                 rules={[
                   {
-                    required: true,
+                    //required: true,
                     min: 2,
                     message: 'Please input your int_app_fee_paper',
                   },
@@ -457,7 +457,7 @@ export default function Add() {
                 name="study_mode_full_time"
                 rules={[
                   {
-                    required: true,
+                    //required: true,
                     message: 'Please input your study_mode_full_time',
                   },
                 ]}
@@ -490,7 +490,7 @@ export default function Add() {
                 name="study_mode_part_time"
                 rules={[
                   {
-                    required: true,
+                    //required: true,
                     message: 'Please input your study_mode_part_time',
                   },
                 ]}
@@ -523,19 +523,33 @@ export default function Add() {
                 name="min_req_local_aps"
                 rules={[
                   {
-                    required: true,
-                    min: 2,
+                    //required: true,
                     message: 'Please input your min_req_local_aps',
                   },
                 ]}
               >
-                <Input
-                  label="min_req_local_aps"
+                <Select
+                  onChange={(value) => {
+                    setCourse((prev) => ({
+                      ...prev,
+                      min_req_local_aps: value,
+                    }));
+                  }}
                   placeholder="min_req_local_aps"
-                  value={course.min_req_local_aps}
-                  name="min_req_local_aps"
-                  onChange={onChangeHandler}
-                />
+                >
+                  {[
+                    { id: 'APS 24', value: 'APS 24' },
+                    { id: 'APS 23', value: 'APS 23' },
+                    { id: 'APS 22', value: 'APS 22' },
+                    { id: 'APS 21', value: 'APS 21' },
+                  ].map((elem) => {
+                    return (
+                      <Option key={elem.id} value={elem.value}>
+                        {elem.value}
+                      </Option>
+                    );
+                  })}
+                </Select>
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -544,19 +558,34 @@ export default function Add() {
                 name="min_req_local_eng"
                 rules={[
                   {
-                    required: true,
-                    min: 2,
+                    //required: true,
                     message: 'Please input your min_req_local_eng',
                   },
                 ]}
               >
-                <Input
-                  label="min_req_local_eng"
+                <Select
+                  onChange={(value) => {
+                    setCourse((prev) => ({
+                      ...prev,
+                      min_req_local_eng: value,
+                    }));
+                  }}
                   placeholder="min_req_local_eng"
-                  value={course.min_req_local_eng}
-                  name="min_req_local_eng"
-                  onChange={onChangeHandler}
-                />
+                >
+                  {[
+                    { id: 'Level 1', value: 'Level 1' },
+                    { id: 'Level 2', value: 'Level 2' },
+                    { id: 'Level 3', value: 'Level 3' },
+                    { id: 'Level 4', value: 'Level 4' },
+                    { id: 'Level 5', value: 'Level 5' },
+                  ].map((elem) => {
+                    return (
+                      <Option key={elem.id} value={elem.value}>
+                        {elem.value}
+                      </Option>
+                    );
+                  })}
+                </Select>
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -565,19 +594,34 @@ export default function Add() {
                 name="min_req_local_add_lang"
                 rules={[
                   {
-                    required: true,
-                    min: 2,
+                    //required: true,
                     message: 'Please input your min_req_local_add_lang',
                   },
                 ]}
               >
-                <Input
-                  label="min_req_local_add_lang"
+                <Select
+                  onChange={(value) => {
+                    setCourse((prev) => ({
+                      ...prev,
+                      min_req_local_add_lang: value,
+                    }));
+                  }}
                   placeholder="min_req_local_add_lang"
-                  value={course.min_req_local_add_lang}
-                  name="min_req_local_add_lang"
-                  onChange={onChangeHandler}
-                />
+                >
+                  {[
+                    { id: 'Level 1', value: 'Level 1' },
+                    { id: 'Level 2', value: 'Level 2' },
+                    { id: 'Level 3', value: 'Level 3' },
+                    { id: 'Level 4', value: 'Level 4' },
+                    { id: 'Level 5', value: 'Level 5' },
+                  ].map((elem) => {
+                    return (
+                      <Option key={elem.id} value={elem.value}>
+                        {elem.value}
+                      </Option>
+                    );
+                  })}
+                </Select>
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -586,19 +630,70 @@ export default function Add() {
                 name="min_req_local_math"
                 rules={[
                   {
-                    required: true,
-                    min: 2,
+                    //required: true,
                     message: 'Please input your min_req_local_math',
                   },
                 ]}
               >
-                <Input
-                  label="min_req_local_math"
+                <Select
+                  onChange={(value) => {
+                    setCourse((prev) => ({
+                      ...prev,
+                      min_req_local_math: value,
+                    }));
+                  }}
                   placeholder="min_req_local_math"
-                  value={course.min_req_local_math}
-                  name="min_req_local_math"
-                  onChange={onChangeHandler}
-                />
+                >
+                  {[
+                    { id: 'Level 1', value: 'Level 1' },
+                    { id: 'Level 2', value: 'Level 2' },
+                    { id: 'Level 3', value: 'Level 3' },
+                    { id: 'Level 4', value: 'Level 4' },
+                    { id: 'Level 5', value: 'Level 5' },
+                  ].map((elem) => {
+                    return (
+                      <Option key={elem.id} value={elem.value}>
+                        {elem.value}
+                      </Option>
+                    );
+                  })}
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                label="Min Requirement Local Physics"
+                name="min_req_local_physics"
+                rules={[
+                  {
+                    //required: true,
+                    message: 'Please input your min_req_local_physics',
+                  },
+                ]}
+              >
+                <Select
+                  onChange={(value) => {
+                    setCourse((prev) => ({
+                      ...prev,
+                      min_req_local_physics: value,
+                    }));
+                  }}
+                  placeholder="min_req_local_physics"
+                >
+                  {[
+                    { id: 'Level 1', value: 'Level 1' },
+                    { id: 'Level 2', value: 'Level 2' },
+                    { id: 'Level 3', value: 'Level 3' },
+                    { id: 'Level 4', value: 'Level 4' },
+                    { id: 'Level 5', value: 'Level 5' },
+                  ].map((elem) => {
+                    return (
+                      <Option key={elem.id} value={elem.value}>
+                        {elem.value}
+                      </Option>
+                    );
+                  })}
+                </Select>
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -607,13 +702,13 @@ export default function Add() {
                 name="min_req_international"
                 rules={[
                   {
-                    required: true,
+                    //required: true,
                     min: 2,
                     message: 'Please input your min_req_international',
                   },
                 ]}
               >
-                <Input
+                <Input.TextArea
                   label="min_req_international"
                   placeholder="min_req_international"
                   value={course.min_req_international}
@@ -647,7 +742,7 @@ export default function Add() {
                 name="online_classes"
                 rules={[
                   {
-                    required: true,
+                    //required: true,
                     message: 'Please input your online_classes',
                   },
                 ]}
@@ -680,7 +775,7 @@ export default function Add() {
                 name="app_opening_date"
                 rules={[
                   {
-                    required: true,
+                    //required: true,
                     message: 'Please input your app_opening_date',
                   },
                 ]}
@@ -702,7 +797,7 @@ export default function Add() {
                 name="app_closing_date"
                 rules={[
                   {
-                    required: true,
+                    //required: true,
                     message: 'Please input your app_closing_date',
                   },
                 ]}
@@ -730,7 +825,7 @@ export default function Add() {
                 ]}
               >
                 <Input.TextArea
-                  rows={4}
+                  // rows={4}
                   name="note"
                   onChange={onChangeHandler}
                   label="note"
@@ -740,11 +835,7 @@ export default function Add() {
               </Form.Item>
             </Col>
           </Row>
-          <Button
-            htmlType="submit"
-            type="primary"
-            // loading={loadings[2]}
-          >
+          <Button htmlType="submit" type="primary" loading={isLoading}>
             Submit
           </Button>
         </Form>
