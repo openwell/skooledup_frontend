@@ -285,6 +285,8 @@ export default function Add() {
                     { id: '2 Years', value: '2 Years' },
                     { id: '3 Years', value: '3 Years' },
                     { id: '4 Years', value: '4 Years' },
+                    { id: '5 Years', value: '5 Years' },
+                    { id: '3-8 Years', value: '3-8 Years' },
                   ].map((elem) => {
                     return (
                       <Option key={elem.id} value={elem.value}>
@@ -553,7 +555,7 @@ export default function Add() {
             </Col>
             <Col span={12}>
               <Form.Item
-                label="Min Requirement Local Aps"
+                label="Min Requirement Local APS"
                 name="min_req_local_aps"
                 rules={[
                   {
@@ -642,7 +644,7 @@ export default function Add() {
             </Col>
             <Col span={12}>
               <Form.Item
-                label="Min Requirement Local Add Lang"
+                label="Min Requirement Local Lang"
                 name="min_req_local_add_lang"
                 rules={[
                   {
