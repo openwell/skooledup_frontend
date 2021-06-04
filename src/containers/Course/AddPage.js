@@ -268,6 +268,40 @@ export default function Add() {
                 rules={[
                   {
                     //required: true,
+                    message: 'Please input your dur',
+                  },
+                ]}
+              >
+                <Select
+                  onChange={(value) => {
+                    setCourse((prev) => ({
+                      ...prev,
+                      dur: value,
+                    }));
+                  }}
+                  placeholder="dur"
+                >
+                  {[
+                    { id: '2 Years', value: '2 Years' },
+                    { id: '3 Years', value: '3 Years' },
+                    { id: '4 Years', value: '4 Years' },
+                  ].map((elem) => {
+                    return (
+                      <Option key={elem.id} value={elem.value}>
+                        {elem.value}
+                      </Option>
+                    );
+                  })}
+                </Select>
+              </Form.Item>
+            </Col>
+            {/* <Col span={12}>
+              <Form.Item
+                label="Duration"
+                name="dur"
+                rules={[
+                  {
+                    //required: true,
                     min: 2,
                     message: 'Please input your dur ',
                   },
@@ -281,7 +315,7 @@ export default function Add() {
                   onChange={onChangeHandler}
                 />
               </Form.Item>
-            </Col>
+            </Col> */}
             <Col span={12}>
               <Form.Item
                 label="Tuition Fee Local"
@@ -538,10 +572,26 @@ export default function Add() {
                   placeholder="min_req_local_aps"
                 >
                   {[
-                    { id: 'APS 24', value: 'APS 24' },
-                    { id: 'APS 23', value: 'APS 23' },
-                    { id: 'APS 22', value: 'APS 22' },
+                    { id: 'APS 19', value: 'APS 19' },
+                    { id: 'APS 20', value: 'APS 20' },
                     { id: 'APS 21', value: 'APS 21' },
+                    { id: 'APS 22', value: 'APS 22' },
+                    { id: 'APS 23', value: 'APS 23' },
+                    { id: 'APS 24', value: 'APS 24' },
+                    { id: 'APS 25', value: 'APS 25' },
+                    { id: 'APS 26', value: 'APS 26' },
+                    { id: 'APS 27', value: 'APS 27' },
+                    { id: 'APS 28', value: 'APS 28' },
+                    { id: 'APS 29', value: 'APS 29' },
+                    { id: 'APS 30', value: 'APS 30' },
+                    { id: 'APS 31', value: 'APS 31' },
+                    { id: 'APS 32', value: 'APS 32' },
+                    { id: 'APS 33', value: 'APS 33' },
+                    { id: 'APS 34', value: 'APS 34' },
+                    { id: 'APS 35', value: 'APS 35' },
+                    { id: 'APS 36', value: 'APS 36' },
+                    { id: 'APS 37', value: 'APS 37' },
+                    { id: 'APS 38', value: 'APS 38' },
                   ].map((elem) => {
                     return (
                       <Option key={elem.id} value={elem.value}>
@@ -573,11 +623,13 @@ export default function Add() {
                   placeholder="min_req_local_eng"
                 >
                   {[
-                    { id: 'Level 1', value: 'Level 1' },
-                    { id: 'Level 2', value: 'Level 2' },
                     { id: 'Level 3', value: 'Level 3' },
                     { id: 'Level 4', value: 'Level 4' },
                     { id: 'Level 5', value: 'Level 5' },
+                    { id: 'Level 6', value: 'Level 6' },
+                    { id: 'Level 7', value: 'Level 7' },
+                    { id: 'Level 8', value: 'Level 8' },
+                    { id: 'Not required', value: 'Not required' },
                   ].map((elem) => {
                     return (
                       <Option key={elem.id} value={elem.value}>
@@ -609,11 +661,12 @@ export default function Add() {
                   placeholder="min_req_local_add_lang"
                 >
                   {[
-                    { id: 'Level 1', value: 'Level 1' },
-                    { id: 'Level 2', value: 'Level 2' },
                     { id: 'Level 3', value: 'Level 3' },
                     { id: 'Level 4', value: 'Level 4' },
                     { id: 'Level 5', value: 'Level 5' },
+                    { id: 'Level 6', value: 'Level 6' },
+                    { id: 'Level 7', value: 'Level 7' },
+                    { id: 'Level 8', value: 'Level 8' },
                     { id: 'Not required', value: 'Not required' },
                   ].map((elem) => {
                     return (
@@ -646,11 +699,13 @@ export default function Add() {
                   placeholder="min_req_local_math"
                 >
                   {[
-                    { id: 'Level 1', value: 'Level 1' },
-                    { id: 'Level 2', value: 'Level 2' },
                     { id: 'Level 3', value: 'Level 3' },
                     { id: 'Level 4', value: 'Level 4' },
                     { id: 'Level 5', value: 'Level 5' },
+                    { id: 'Level 6', value: 'Level 6' },
+                    { id: 'Level 7', value: 'Level 7' },
+                    { id: 'Level 8', value: 'Level 8' },
+                    { id: 'Not required', value: 'Not required' },
                   ].map((elem) => {
                     return (
                       <Option key={elem.id} value={elem.value}>
@@ -682,11 +737,12 @@ export default function Add() {
                   placeholder="min_req_local_physics"
                 >
                   {[
-                    { id: 'Level 1', value: 'Level 1' },
-                    { id: 'Level 2', value: 'Level 2' },
                     { id: 'Level 3', value: 'Level 3' },
                     { id: 'Level 4', value: 'Level 4' },
                     { id: 'Level 5', value: 'Level 5' },
+                    { id: 'Level 6', value: 'Level 6' },
+                    { id: 'Level 7', value: 'Level 7' },
+                    { id: 'Level 8', value: 'Level 8' },
                     { id: 'Not required', value: 'Not required' },
                   ].map((elem) => {
                     return (
