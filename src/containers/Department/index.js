@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Space, Spin } from 'antd';
+import { Table, Space, Spin, Empty } from 'antd';
 import styled from 'styled-components';
 import { departmentApis } from 'apis';
 import CustomLayout from 'layout/LayoutOne';
@@ -72,12 +72,14 @@ export default function Department() {
             </div>
           ) : (
             <>
-              {departmentList?.length > 0 && (
+              {departmentList?.length > 0 ? (
                 <Table
                   columns={columns}
                   dataSource={departmentList}
                   rowKey="id"
                 />
+              ) : (
+                <Empty />
               )}
             </>
           )}

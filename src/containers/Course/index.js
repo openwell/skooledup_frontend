@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Space, Button, Spin } from 'antd';
+import { Table, Space, Button, Spin, Empty } from 'antd';
 import styled from 'styled-components';
 import { courseApis } from 'apis';
 import CustomLayout from 'layout/LayoutOne';
@@ -95,8 +95,10 @@ export default function Course() {
             </div>
           ) : (
             <>
-              {courseList?.length > 0 && (
+              {courseList?.length > 0 ? (
                 <Table columns={columns} dataSource={courseList} rowKey="id" />
+              ) : (
+                <Empty />
               )}
             </>
           )}

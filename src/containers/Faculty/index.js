@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Space, Spin } from 'antd';
+import { Table, Space, Spin, Empty } from 'antd';
 import styled from 'styled-components';
 import { facultyApis } from 'apis';
 import CustomLayout from 'layout/LayoutOne';
@@ -67,8 +67,10 @@ export default function Faculty() {
             </div>
           ) : (
             <>
-              {facultyList.length > 0 && (
+              {facultyList.length > 0 ? (
                 <Table columns={columns} dataSource={facultyList} rowKey="id" />
+              ) : (
+                <Empty />
               )}
             </>
           )}

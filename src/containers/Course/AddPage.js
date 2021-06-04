@@ -614,6 +614,7 @@ export default function Add() {
                     { id: 'Level 3', value: 'Level 3' },
                     { id: 'Level 4', value: 'Level 4' },
                     { id: 'Level 5', value: 'Level 5' },
+                    { id: 'Not required', value: 'Not required' },
                   ].map((elem) => {
                     return (
                       <Option key={elem.id} value={elem.value}>
@@ -686,6 +687,7 @@ export default function Add() {
                     { id: 'Level 3', value: 'Level 3' },
                     { id: 'Level 4', value: 'Level 4' },
                     { id: 'Level 5', value: 'Level 5' },
+                    { id: 'Not required', value: 'Not required' },
                   ].map((elem) => {
                     return (
                       <Option key={elem.id} value={elem.value}>

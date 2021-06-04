@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Space, Spin } from 'antd';
+import { Table, Space, Spin, Empty } from 'antd';
 import styled from 'styled-components';
 import { degreeApis } from 'apis';
 import CustomLayout from 'layout/LayoutOne';
@@ -61,8 +61,10 @@ export default function Degree() {
             </div>
           ) : (
             <>
-              {degreeList?.length > 0 && (
+              {degreeList?.length > 0 ? (
                 <Table columns={columns} dataSource={degreeList} rowKey="id" />
+              ) : (
+                <Empty />
               )}
             </>
           )}

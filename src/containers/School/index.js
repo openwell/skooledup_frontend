@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Space, Avatar, Spin } from 'antd';
+import { Table, Space, Avatar, Spin, Empty } from 'antd';
 import styled from 'styled-components';
 import { schoolApis } from 'apis';
 import { PictureOutlined } from '@ant-design/icons';
@@ -67,8 +67,10 @@ export default function Home() {
             </div>
           ) : (
             <>
-              {schoolList.length > 0 && (
+              {schoolList.length > 0 ? (
                 <Table columns={columns} dataSource={schoolList} rowKey="id" />
+              ) : (
+                <Empty />
               )}
             </>
           )}
