@@ -833,12 +833,12 @@ export default function Add() {
               <Form.Item
                 label="Application Date (Opening)"
                 name="app_opening_date"
-                rules={[
-                  {
-                    //required: true,
-                    message: 'Please input your app_opening_date',
-                  },
-                ]}
+                // rules={[
+                //   {
+                //     //required: true,
+                //     message: 'Please input your app_opening_date',
+                //   },
+                // ]}
               >
                 <DatePicker
                   label="app_opening_date"
@@ -855,12 +855,12 @@ export default function Add() {
               <Form.Item
                 label="Application Date (Closing)"
                 name="app_closing_date"
-                rules={[
-                  {
-                    //required: true,
-                    message: 'Please input your app_closing_date',
-                  },
-                ]}
+                // rules={[
+                //   {
+                //     //required: true,
+                //     message: 'Please input your app_closing_date',
+                //   },
+                // ]}
               >
                 <DatePicker
                   name="app_closing_date"
