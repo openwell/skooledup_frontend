@@ -410,7 +410,7 @@ export default function Add() {
             </Col>
             <Col span={12}>
               <Form.Item
-                label="Local App Fee (Online)"
+                label="Local Application Fee (Online)"
                 name="local_app_fee_online"
                 rules={[
                   {
@@ -431,7 +431,7 @@ export default function Add() {
             </Col>
             <Col span={12}>
               <Form.Item
-                label="Local App Fee (Paper based)"
+                label="Local Application Fee (Paper based)"
                 name="local_app_fee_paper"
                 rules={[
                   {
@@ -452,7 +452,7 @@ export default function Add() {
             </Col>
             <Col span={12}>
               <Form.Item
-                label="International  App Fee (Online)"
+                label="International Application Fee (Online)"
                 name="int_app_fee_online"
                 rules={[
                   {
@@ -473,7 +473,7 @@ export default function Add() {
             </Col>
             <Col span={12}>
               <Form.Item
-                label="International  App Fee (Paper based)"
+                label="International Application Fee (Paper based)"
                 name="int_app_fee_paper"
                 rules={[
                   {
@@ -560,7 +560,7 @@ export default function Add() {
             </Col>
             <Col span={12}>
               <Form.Item
-                label="Min Requirement Local APS"
+                label="Minimum Requirement Local APS"
                 name="min_req_local_aps"
                 rules={[
                   {
@@ -611,7 +611,7 @@ export default function Add() {
             </Col>
             <Col span={12}>
               <Form.Item
-                label="Min Requirement Local Eng"
+                label="Minimum Requirement Local Eng"
                 name="min_req_local_eng"
                 rules={[
                   {
@@ -649,7 +649,7 @@ export default function Add() {
             </Col>
             <Col span={12}>
               <Form.Item
-                label="Min Requirement Local Lang"
+                label="Minimum Requirement Local Lang"
                 name="min_req_local_add_lang"
                 rules={[
                   {
@@ -687,7 +687,7 @@ export default function Add() {
             </Col>
             <Col span={12}>
               <Form.Item
-                label="Min Requirement Local Maths"
+                label="Minimum Requirement Local Maths"
                 name="min_req_local_math"
                 rules={[
                   {
@@ -725,7 +725,7 @@ export default function Add() {
             </Col>
             <Col span={12}>
               <Form.Item
-                label="Min Requirement Local Physics"
+                label="Minimum Requirement Local Physics"
                 name="min_req_local_physics"
                 rules={[
                   {
