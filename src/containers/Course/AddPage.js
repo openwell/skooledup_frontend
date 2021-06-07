@@ -18,6 +18,7 @@ import {
   degreeApis,
 } from 'apis';
 import CustomLayout from 'layout/LayoutOne';
+import { navigate } from '@reach/router';
 const { Option } = Select;
 const { Title } = Typography;
 export default function Add() {
@@ -83,6 +84,9 @@ export default function Add() {
     const { value, name } = e.target;
     setCourse((prev) => ({ ...prev, [name]: value }));
   };
+  const navigationHandler = (dest) => {
+    navigate(dest);
+  };
   const handleSubmit = async () => {
     try {
       const refRes = await formRef.current.validateFields();
@@ -98,6 +102,7 @@ export default function Add() {
             console.log('Notification Clicked!');
           },
         });
+        navigationHandler('course');
       }
     } catch (error) {
       console.dir(error.message || error);
