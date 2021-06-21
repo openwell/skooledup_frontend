@@ -5,7 +5,9 @@ import { courseApis } from 'apis';
 import CustomLayout from 'layout/LayoutOne';
 import { navigate } from '@reach/router';
 // import EditModal from './EditModal';
-
+const navigationHandler = (dest) => {
+  navigate(dest);
+};
 const columns = [
   {
     title: 'School',
@@ -51,6 +53,12 @@ const columns = [
       return (
         <Space size="middle">
           {/* <EditModal courseData={text} /> */}
+          <p
+            style={{ cursor: 'pointer' }}
+            onClick={() => navigationHandler(`/course/edit?id=${text.id}`)}
+          >
+            Edit
+          </p>
           <p>Delete</p>
         </Space>
       );
@@ -65,10 +73,10 @@ export default function Course() {
       try {
         setLoading(true);
         const res = await courseApis.getAllCourses();
-        console.log(res);
+        // console.log(res);
         setCourseList(res.data.data.data);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       } finally {
         setLoading(false);
       }
@@ -76,13 +84,11 @@ export default function Course() {
     getCourses();
     return () => {};
   }, []);
-  const navigationHandler = (dest) => {
-    navigate(dest);
-  };
+
   return (
     <Styled>
       <CustomLayout>
-        <Button type="primary" onClick={() => navigationHandler('/add-course')}>
+        <Button type="primary" onClick={() => navigationHandler('/course/add')}>
           Add Course
         </Button>
         <div

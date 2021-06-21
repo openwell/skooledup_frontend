@@ -10,74 +10,100 @@ import {
   Col,
   DatePicker,
 } from 'antd';
-import {
-  departmentApis,
-  schoolApis,
-  facultyApis,
-  courseApis,
-  degreeApis,
-} from 'apis';
+import { schoolApis, courseApis, degreeApis } from 'apis';
 import CustomLayout from 'layout/LayoutOne';
-import { navigate } from '@reach/router';
+import { navigate, useLocation } from '@reach/router';
+import styled from 'styled-components';
+import moment from 'moment';
 const { Option } = Select;
 const { Title } = Typography;
-export default function Add() {
+export default function Edit() {
   const formRef = useRef();
-  const [course, setCourse] = useState({
-    department_id: '',
-    school_id: '',
-    faculty_id: '',
-  });
+  const [course, setCourse] = useState({});
   const [isLoading, setLoading] = useState(false);
   const [schoolList, setSchoolList] = useState([]);
   const [facultyList, setFacultyList] = useState([]);
   const [departmentList, setDepartmentList] = useState([]);
   const [degreeList, setDegreeList] = useState([]);
+  const location = useLocation();
+  const search = new URLSearchParams(location.search);
+  const courseId = search.get('id');
+  //   const [courseDetails, setCourseDetails] = useState({});
   useEffect(() => {
+    const getCourseById = async () => {
+      try {
+        const res = await courseApis.getCourseById(courseId);
+        let courseInfo = res.data.data.data;
+        const extraCourse = {
+          school_name: courseInfo.school_id,
+          faculty_id: courseInfo.faculty_name,
+          department_id: courseInfo.department_name,
+          department_id_holder: courseInfo.department_id,
+          degree_id: courseInfo.degree_id,
+          //
+          course_name: courseInfo.course_name,
+          app_closing_date: courseInfo?.application_closing_date
+            ? moment(courseInfo?.application_closing_date, 'YYYY-MM-DD')
+            : '',
+          app_opening_date: courseInfo?.application_opening_date
+            ? moment(courseInfo?.application_opening_date, 'YYYY-MM-DD')
+            : '',
+          hero_image: courseInfo.hero_image,
+          int_app_fee_online: courseInfo.international_application_fee_online,
+          int_app_fee_paper: courseInfo.international_application_fee_paper,
+          levy: courseInfo.levy,
+          dur: courseInfo.duration,
+          levy_non_african: courseInfo.levy_non_african,
+          local_app_fee_online: courseInfo.local_application_fee_online,
+          local_app_fee_paper: courseInfo.local_application_fee_paper,
+          min_req_international: courseInfo.min_req_international,
+          min_req_local_additional_lang:
+            courseInfo.min_req_local_additional_lang,
+          min_req_local_aps: courseInfo.min_req_local_aps,
+          min_req_local_eng: courseInfo.min_req_local_english,
+          min_req_local_math: courseInfo.min_req_local_mathematics,
+          min_req_local_physics: courseInfo.min_req_local_physics,
+          note: courseInfo.note,
+          online_classes: courseInfo.online_classes,
+          study_mode_full_time: courseInfo.study_mode_full_time,
+          study_mode_part_time: courseInfo.study_mode_part_time,
+          tui_fee_int: courseInfo.tuition_fee_int,
+          tui_fee_local: courseInfo.tuition_fee_local,
+        };
+        setCourse(extraCourse);
+        formRef?.current?.setFieldsValue(extraCourse);
+        // console.log(res);
+      } catch (error) {
+        // console.error(error);
+      }
+    };
     const getSchools = async () => {
       try {
         const res = await schoolApis.getAllSchools();
-        console.log(res);
+        // console.log(res);
         setSchoolList(res.data.data.data);
       } catch (error) {
-        console.log(error);
+        // console.error(error);
       }
     };
     const getDegrees = async () => {
       try {
         const res = await degreeApis.getAllDegrees();
-        console.log(res);
+        // console.log(res);
         setDegreeList(res.data.data.data);
       } catch (error) {
-        console.log(error);
+        // console.error(error);
       }
     };
+    getCourseById();
     getDegrees();
     getSchools();
-    return () => {};
+    return () => {
+      getCourseById();
+      getDegrees();
+      getSchools();
+    };
   }, []);
-  const getFacultyBySchoolId = async (id) => {
-    try {
-      const res = await facultyApis.getFacultiesBySchoolId({
-        school_id: id,
-      });
-      console.log(res);
-      setFacultyList(res.data.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const getDepartmentByFacultyId = async (id) => {
-    try {
-      const res = await departmentApis.getDepartmentsByFacultyId({
-        faculty_id: id,
-      });
-      console.log(res);
-      setDepartmentList(res.data.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const onChangeHandler = (e, v) => {
     e.preventDefault();
@@ -91,67 +117,61 @@ export default function Add() {
     try {
       const refRes = await formRef.current.validateFields();
       setLoading(true);
-      console.log(course);
-      const res = await courseApis.addCourse(course);
-      console.log(res.data);
+      let clone_course = { ...course };
+      clone_course.department_id = clone_course.department_id_holder;
+      clone_course.app_opening_date =
+        clone_course.app_opening_date &&
+        moment(course.app_opening_date).format('YYYY-MM-DD');
+      clone_course.app_closing_date =
+        clone_course.app_closing_date &&
+        moment(course.app_closing_date).format('YYYY-MM-DD');
+      delete clone_course.department_id_holder;
+      // console.log(clone_course);
+      const res = await courseApis.updateCourseById({
+        id: courseId,
+        data: clone_course,
+      });
+      // console.log(res.data);
       if (res.data.data.message == 'success') {
         formRef.current.resetFields();
         notification.success({
           message: 'Success',
           onClick: () => {
-            console.log('Notification Clicked!');
+            // console.log('Notification Clicked!');
           },
         });
-        navigationHandler('course');
+        navigationHandler('/course');
       }
     } catch (error) {
-      console.dir(error.message || error);
+      // console.dir(error.message || error);
       notification.error({
         message: 'Error',
         description: error?.response?.statusText || 'Error',
         onClick: () => {
-          console.log('Notification Clicked!');
+          // console.log('Notification Clicked!');
         },
       });
     } finally {
       setLoading(false);
     }
   };
-
+  //   console.log(courseDetails);
   return (
-    <div>
+    <Styled>
       <CustomLayout>
-        <Title level={2}>Create Course</Title>
+        <Title level={2}>Edit Course</Title>
         <Form
           onFinish={handleSubmit}
           layout="vertical"
           ref={formRef}
           name="control-ref"
           style={{ padding: 24, minHeight: 360 }}
+          // initialValues={{ course_name: 'course.course_name' }}
         >
           <Row gutter={[16, 0]}>
             <Col span={12}>
-              <Form.Item
-                label="School"
-                name="school_name"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please select your school',
-                  },
-                ]}
-              >
-                <Select
-                  onChange={(value) => {
-                    setCourse((prev) => ({ ...prev, school_id: value }));
-                    getFacultyBySchoolId(value);
-                    formRef.current.setFieldsValue({
-                      faculty_id: null,
-                      department_id: null,
-                    });
-                  }}
-                  placeholder="Select School"
-                >
+              <Form.Item label="School" name="school_name">
+                <Select disabled placeholder="Select School">
                   {schoolList.map((elem) => {
                     return (
                       <Option key={elem.id} value={elem.id}>
@@ -163,22 +183,14 @@ export default function Add() {
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item
-                label="Faculty"
-                name="faculty_id"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please select your faculty',
-                  },
-                ]}
-              >
+              <Form.Item label="Faculty" name="faculty_id">
                 <Select
-                  onChange={(value) => {
-                    setCourse((prev) => ({ ...prev, faculty_id: value }));
-                    getDepartmentByFacultyId(value);
-                    formRef.current.setFieldsValue({ department_id: null });
-                  }}
+                  disabled={true}
+                  // onChange={(value) => {
+                  //   setCourse((prev) => ({ ...prev, faculty_id: value }));
+                  //   getDepartmentByFacultyId(value);
+                  //   formRef.current.setFieldsValue({ department_id: null });
+                  // }}
                   placeholder="Select Faculty"
                 >
                   {facultyList.map((elem) => {
@@ -192,20 +204,12 @@ export default function Add() {
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item
-                label="Department"
-                name="department_id"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please select your department',
-                  },
-                ]}
-              >
+              <Form.Item label="Department" name="department_id">
                 <Select
-                  onChange={(value) =>
-                    setCourse((prev) => ({ ...prev, department_id: value }))
-                  }
+                  disabled={true}
+                  // onChange={(value) =>
+                  //   setCourse((prev) => ({ ...prev, department_id: value }))
+                  // }
                   placeholder="Select Department"
                 >
                   {departmentList.map((elem) => {
@@ -219,20 +223,12 @@ export default function Add() {
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item
-                label="Degree"
-                name="degree_id"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please select your degree',
-                  },
-                ]}
-              >
+              <Form.Item label="Degree" name="degree_id">
                 <Select
-                  onChange={(value) =>
-                    setCourse((prev) => ({ ...prev, degree_id: value }))
-                  }
+                  disabled={true}
+                  // onChange={(value) =>
+                  //   setCourse((prev) => ({ ...prev, degree_id: value }))
+                  // }
                   placeholder="Select Degree"
                 >
                   {degreeList.map((elem) => {
@@ -260,6 +256,7 @@ export default function Add() {
                 <Input
                   label="Course"
                   placeholder="Course"
+                  //   defaultValue={course.course_name}
                   value={course.course_name}
                   name="course_name"
                   onChange={onChangeHandler}
@@ -905,61 +902,12 @@ export default function Add() {
           </Button>
         </Form>
       </CustomLayout>
-    </div>
+    </Styled>
   );
 }
-// <Col span={12} ></Col>
-// course_name,
-// depart_id,
-// deg_id,
-// // string
-// dur,
-// tui_fee_local,
-// tui_fee_int,
-// levy,
-// local_app_fee_online,
-// local_app_fee_paper,
-// int_app_fee_online,
-// int_app_fee_paper,
-// study_mode_full_time,
-// study_mode_part_time,
-// min_req_local_aps,
-// min_req_local_eng,
-// min_req_local_add_lang,
-// min_req_local_math,******
-// //   dates
-// app_opening_date,
-// app_closing_date,
-// //   text
-// note,
-// hero_image,
-
-// "Non-SADC Tuition Fee": "2X local fees\n ",
-// "SADC Tuition Fee": " only local fees ",
-// Minimum Requirementuirements (local)
-// Minimum Requirementuirements (International)
-// Levy
-// Non - African Countries
-// Online Class
-
-// tbl.string('duration', 255);
-// tbl.string('tuition_fee_local', 255);
-// tbl.string('tuition_fee_int', 255);
-// tbl.string('levy', 255);
-// tbl.string('levy_non_african', 255);
-// tbl.string('local_application_fee_online', 255);
-// tbl.string('local_application_fee_paper', 255);
-// tbl.string('international_application_fee_online', 255);
-// tbl.string('international_application_fee_paper', 255);
-// tbl.string('study_mode_full_time', 255);
-// tbl.string('study_mode_part_time', 255);
-// tbl.string('min_req_local_aps', 255);
-// tbl.string('min_req_local_english', 255);
-// tbl.string('min_req_local_additional_lang', 255);
-// tbl.string('min_req_local_mathematics', 255);
-// tbl.string('min_req_international', 255);
-// tbl.date('application_opening_date');
-// tbl.date('application_closing_date');
-// tbl.date('online_classes');
-// tbl.text('note');
-// tbl.text('hero_image');
+const Styled = styled.div`
+  .center_spinner {
+    display: flex;
+    justify-content: center;
+  }
+`;

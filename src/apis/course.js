@@ -9,6 +9,14 @@ const request = {
       url,
     });
   },
+  getCourseById: (id) => {
+    let method = 'get';
+    let url = '/course/' + id;
+    return apiWithoutToken({
+      method,
+      url,
+    });
+  },
   updateCourseById: ({ id, data }) => {
     let method = 'put';
     let url = '/course/' + id;

@@ -4,7 +4,8 @@ import Faculty from '../containers/Faculty';
 import Department from '../containers/Department';
 import Degree from '../containers/Degree';
 import Course from '../containers/Course';
-import AddCourse from '../containers/Course/AddPage';
+import AddCourse from '../containers/Course/Add';
+import EditCourse from '../containers/Course/Edit';
 import { Router, Redirect } from '@reach/router';
 
 export const ScrollToTop = ({ children, location }) => {
@@ -22,7 +23,8 @@ export default function Index() {
           <Department path="/department" />
           <Degree path="/degree" />
           <Course path="/course" />
-          <AddCourse path="/add-course" />
+          <AddCourse path="/course/add" />
+          <EditCourse path="/course/edit" />
           <Redirect from="*" to="/" noThrow />
         </ScrollToTop>
       </Router>
